@@ -5,7 +5,7 @@ var glob = require('glob'),
 
 var imgs = 'var imgs=['
 
-glob('img/**/*.jpg', function (err, files) {
+glob('img/**/*.{jpg,JPG}', function (err, files) {
   if (err) throw err;
   var len = files.length;
   files.forEach(function (img, i) {

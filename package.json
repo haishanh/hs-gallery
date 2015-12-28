@@ -13,8 +13,11 @@
   "author": "HAN Haishan",
   "license": "MIT",
   "devDependencies": {
+    "browser-sync": "^2.10.1",
     "gulp": "^3.9.0",
     "gulp-image-resize": "^0.7.1",
-    "gulp-sass": "^2.1.1"
+    "gulp-inject": "^3.0.0",
+    "gulp-sass": "^2.1.1",
+    "gulp-svgstore": "^5.0.5"
   }
 }

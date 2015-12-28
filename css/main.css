@@ -4,3 +4,45 @@
 
 .thumbnail {
   margin: auto 10px; }
+
+#largeview {
+  visibility: hidden;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1000;
+  border: 2px solid white;
+  width: auto;
+  height: auto;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.7); }
+  #largeview .helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle; }
+  #largeview img {
+    max-width: 100%; }
+  #largeview .close {
+    position: fixed;
+    top: 0px;
+    right: 2px; }
+  #largeview .left {
+    position: fixed;
+    top: 50%;
+    left: 10px; }
+  #largeview .right {
+    position: fixed;
+    top: 50%;
+    right: 10px; }
+
+svg.icon {
+  width: 50px;
+  height: 50px;
+  fill: rgba(255, 255, 255, 0.6); }
+  svg.icon:hover {
+    fill: rgba(200, 25, 25, 0.6); }
