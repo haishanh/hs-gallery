@@ -8,9 +8,6 @@
 #largeview {
   visibility: hidden;
   position: fixed;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
   top: 0;
   left: 0;
   bottom: 0;
@@ -26,7 +23,8 @@
     height: 100%;
     vertical-align: middle; }
   #largeview img {
-    max-width: 100%; }
+    display: block;
+    margin: 0 auto; }
   #largeview .close {
     position: fixed;
     top: 0px;
