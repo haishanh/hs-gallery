@@ -4,6 +4,11 @@ var d = document;
 var e = $('#thumbnails');
 
 var startIndex = 0;
+var originalSize = {};
+var LEFT_KEY = 37;
+var RIGHT_KEY = 39;
+//var W = window.innerWidth;
+//var H = window.innerHeight;
 
 var throttle = function(type, name, obj) {
   obj = obj || window;
@@ -80,7 +85,21 @@ function loadPrev(index, num) {
   for (var i = 0; i < num; i++) {
     var id = index - i - 1;
     if (id >= 0) {
-      Image().src = "img/" + imgs[id];
+      var img = new Image();
+
+      img.onload = function () {
+
+            var w = this.width;
+            var h = this.height;
+            // store original size of the image
+            originalSize[id] = {
+              w: w,
+              h: h
+            };
+      }
+
+      img.src = "img/" + imgs[id];
+
     }
   }
 }
@@ -90,7 +109,41 @@ function loadNext(index, num) {
   for (var i = 0; i < num; i++) {
     var id = index + i + 1;
     if (id < len) {
-      Image().src = "img/" + imgs[id];
+      new Image().src = "img/" + imgs[id];
+    }
+  }
+}
+
+
+
+
+/**
+ * update style of the img
+ * @param {ElementNode} img - element being styled
+ * @param {Number} w - original width of the img
+ * @param {Number} h - original height of the img
+ */
+function updateImgStyle(img, w, h) {
+  console.log('updating style' + new Date());
+
+  // get window size
+  var W = window.innerWidth, H = window.innerHeight;
+
+
+  // clearup style
+  img.style.maxWidth = img.style.maxHeight = img.style.marginTop = '';
+
+  // find the "longer" factor
+  if(w / h > W / H) {
+    console.log('I need to a just width');
+    img.style.maxWidth = '90%';
+  } else {
+    console.log('I need to a just height');
+    if (h < H * 9 / 10) {
+      img.style.marginTop = (H - h) / 2 + 'px';
+    } else {
+      img.style.maxHeight = H * 9 / 10 + 'px';
+      img.style.marginTop = H / 20 + 'px';
     }
   }
 }
@@ -99,11 +152,29 @@ function replaceImg(imgs, id) {
   var img = document.querySelector('#largeview img');
   var left = document.querySelector('#largeview .left');
   var right = document.querySelector('#largeview .right');
+
+  img.onload = function () {
+
+    var w = this.width;
+    var h = this.height;
+    // store original size of the image
+    originalSize[id] = {
+      w: w,
+      h: h
+    };
+
+    updateImgStyle(img, w, h);
+  }
   img.src = 'img/' + imgs[id];
   img.setAttribute('index', id + '');
 
   left.style.visibility = id === 0 ? 'hidden' : 'visible';
   right.style.visibility = id === imgs.length - 1 ? 'hidden' : 'visible';
+
+  // prefetch
+  loadPrev(id, 1);
+  loadNext(id, 2);
+
   return img;
 }
 
@@ -127,20 +198,48 @@ function displayNext() {
   //img.setAttribute('index', curId + 1 + '')
 }
 
+// keyboard ev
+window.addEventListener('resize', function () {
+  var img = document.querySelector('#largeview img');
+  if(!img) return;
+  var id = +img.getAttribute('index');
+
+  updateImgStyle(img, originalSize[id].w, originalSize[id].h);
+});
+
 
 document.querySelector('#largeview .left').addEventListener('click', displayPrev, false);
 document.querySelector('#largeview .right').addEventListener('click', displayNext, false);
+
+document.addEventListener('keydown', function (e) {
+  e = e || window.event;
+  var view = document.querySelector('#largeview');
+  if (view.style.visibility === 'visible') {
+    if (e.keyCode === LEFT_KEY) {
+      displayPrev();
+      return;
+    }
+    if (e.keyCode === RIGHT_KEY) {
+      displayNext();
+      return;
+    }
+  }
+});
 
 // close overlay while 'close' icon being clicked
 document.querySelector('#largeview .close').addEventListener('click', function () {
   console.log('yes');
   document.querySelector('#largeview').style.visibility = 'hidden';
   document.querySelector('#largeview img').src = '';
+  var left = document.querySelector('#largeview .left');
+  var right = document.querySelector('#largeview .right');
+  left.style.visibility = 'hidden';
+  right.style.visibility = 'hidden';
 }, false);
 
 
 throttle('scroll', 'optimizedScroll');
-loadImg(10);
+loadImg(60);
 
 //Array.from(d.querySelectorAll('.thumbnail')).forEach(function (a) {
 //  a.addEventListener('click', function (e) {
