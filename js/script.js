@@ -133,14 +133,12 @@ function updateImgStyle(img, w, h) {
   // clearup style
   img.style.maxWidth = img.style.maxHeight = img.style.marginTop = '';
 
-  // find the "longer" factor
-  if(w / h > W / H) {
-
-    img.style.maxWidth = '90%';
-
+  if (h < H * 9 / 10) {
+    img.style.marginTop = (H - h) / 2 + 'px';
   } else {
-    if (h < H * 9 / 10) {
-      img.style.marginTop = (H - h) / 2 + 'px';
+    if (w / h > W / H) {
+      img.style.maxWidth = '90%';
+      img.style.marginTop = (H - (W * h * 9 / 10 / w)) / 2 + 'px';
     } else {
       img.style.maxHeight = H * 9 / 10 + 'px';
       img.style.marginTop = H / 20 + 'px';
@@ -193,7 +191,6 @@ function replaceImg(imgs, id) {
     }
   }
 
-  console.log(imgDom);
 
   left.style.visibility = id === 0 ? 'hidden' : 'visible';
   right.style.visibility = id === imgs.length - 1 ? 'hidden' : 'visible';
@@ -222,7 +219,8 @@ function displayNext() {
 }
 
 // keyboard ev
-window.addEventListener('resize', function () {
+throttle('resize', 'optimizedResize');
+window.addEventListener('optimizedResize', function () {
   var img = document.querySelector('#largeview img');
   if(!img) return;
   var id = +img.getAttribute('index');
