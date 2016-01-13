@@ -11,6 +11,7 @@
   };
   var LEFT_KEY = 37;
   var RIGHT_KEY = 39;
+  var ESCAPE_KEY = 27;
 
   var throttle = function(type, name, obj) {
     obj = obj || wd;
@@ -218,6 +219,14 @@
     replaceImg(imgs, curId + 1);
   }
 
+  function hideLargeview() {
+    $('#largeview').style.visibility = 'hidden';
+    var left = $('#largeview .left');
+    var right = $('#largeview .right');
+    left.style.visibility = 'hidden';
+    right.style.visibility = 'hidden';
+  }
+
   // keyboard ev
   throttle('resize', 'optimizedResize');
   wd.addEventListener('optimizedResize', function () {
@@ -245,17 +254,15 @@
         displayNext();
         return;
       }
+      if (e.keyCode === ESCAPE_KEY) {
+        hideLargeview();
+        return;
+      }
     }
   });
 
   // close overlay while 'close' icon being clicked
-  $('#largeview .close').addEventListener('click', function () {
-    $('#largeview').style.visibility = 'hidden';
-    var left = $('#largeview .left');
-    var right = $('#largeview .right');
-    left.style.visibility = 'hidden';
-    right.style.visibility = 'hidden';
-  }, false);
+  $('#largeview .close').addEventListener('click', hideLargeview, false);
 
 
   throttle('scroll', 'optimizedScroll');
