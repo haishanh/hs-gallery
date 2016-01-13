@@ -58,8 +58,8 @@
 
         var id = +a.getAttribute('index');
         var img = replaceImg(imgs, id);
-        var largeview = d.querySelector('#largeview');
-        largeview.style.visibility = 'visible';
+        var overlay = d.querySelector('#overlay');
+        overlay.style.visibility = 'visible';
       }, 'false');
 
       // add anchor to the last thumbnail
@@ -148,10 +148,10 @@
   }
 
   function replaceImg(imgs, id) {
-    var view = $('#largeview');
-    var oldImg = $('#largeview img');
-    var left = $('#largeview .left');
-    var right = $('#largeview .right');
+    var view = $('#overlay');
+    var oldImg = $('#overlay img');
+    var left = $('#overlay .left');
+    var right = $('#overlay .right');
 
     var img;
 
@@ -204,7 +204,7 @@
   }
 
   function displayPrev() {
-    var img = $('#largeview img');
+    var img = $('#overlay img');
     var curId = +img.getAttribute('index');
     if (curId === 0) return;
 
@@ -212,17 +212,17 @@
   }
 
   function displayNext() {
-    var img = $('#largeview img');
+    var img = $('#overlay img');
     var curId = +img.getAttribute('index');
     if (curId >= imgs.length - 1) return;
 
     replaceImg(imgs, curId + 1);
   }
 
-  function hideLargeview() {
-    $('#largeview').style.visibility = 'hidden';
-    var left = $('#largeview .left');
-    var right = $('#largeview .right');
+  function hideOverlay() {
+    $('#overlay').style.visibility = 'hidden';
+    var left = $('#overlay .left');
+    var right = $('#overlay .right');
     left.style.visibility = 'hidden';
     right.style.visibility = 'hidden';
   }
@@ -230,7 +230,7 @@
   // keyboard ev
   throttle('resize', 'optimizedResize');
   wd.addEventListener('optimizedResize', function () {
-    var img = $('#largeview img');
+    var img = $('#overlay img');
     if(!img) return;
     var id = +img.getAttribute('index');
     if (!origImgs[id]) return;
@@ -239,12 +239,12 @@
   });
 
 
-  $('#largeview .left').addEventListener('click', displayPrev, false);
-  $('#largeview .right').addEventListener('click', displayNext, false);
+  $('#overlay .left').addEventListener('click', displayPrev, false);
+  $('#overlay .right').addEventListener('click', displayNext, false);
 
   d.addEventListener('keydown', function (e) {
     e = e || wd.event;
-    var view = d.querySelector('#largeview');
+    var view = d.querySelector('#overlay');
     if (view.style.visibility === 'visible') {
       if (e.keyCode === LEFT_KEY) {
         displayPrev();
@@ -255,14 +255,14 @@
         return;
       }
       if (e.keyCode === ESCAPE_KEY) {
-        hideLargeview();
+        hideOverlay();
         return;
       }
     }
   });
 
   // close overlay while 'close' icon being clicked
-  $('#largeview .close').addEventListener('click', hideLargeview, false);
+  $('#overlay .close').addEventListener('click', hideOverlay, false);
 
 
   throttle('scroll', 'optimizedScroll');

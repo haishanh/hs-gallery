@@ -5,7 +5,7 @@
 .thumbnail {
   margin: auto 10px; }
 
-#largeview {
+#overlay {
   visibility: hidden;
   position: fixed;
   top: 0;
@@ -18,23 +18,23 @@
   height: auto;
   text-align: center;
   background: rgba(0, 0, 0, 0.7); }
-  #largeview .helper {
+  #overlay .helper {
     display: inline-block;
     height: 100%;
     vertical-align: middle; }
-  #largeview img {
+  #overlay img {
     display: block;
     margin: 0 auto; }
-  #largeview .close {
+  #overlay .close {
     position: fixed;
     top: 5px;
     right: 5px; }
-  #largeview .left {
+  #overlay .left {
     position: fixed;
     top: 50%;
     left: 10px;
     height: 100px; }
-  #largeview .right {
+  #overlay .right {
     position: fixed;
     top: 50%;
     right: 10px;
