@@ -68,7 +68,7 @@
         a.classList.add('last');
         wd.addEventListener('optimizedScroll', function () {
           var e = d.querySelector('a.last');
-          if (e.getBoundingClientRect().top < wd.innerHeight) loadImg(10);
+          if (e && e.getBoundingClientRect().top < wd.innerHeight) loadImg(10);
         }, false)
       }
     });
