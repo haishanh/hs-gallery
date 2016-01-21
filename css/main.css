@@ -1,0 +1,54 @@
+#thumbnails {
+  width: 600px;
+  margin: 0 auto; }
+
+.thumbnail {
+  display: inline-block;
+  margin: 6px 10px; }
+
+#overlay {
+  visibility: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  z-index: 1000;
+  border: 2px solid white;
+  width: auto;
+  height: auto;
+  text-align: center;
+  background: rgba(0, 0, 0, 0.7); }
+  #overlay .helper {
+    display: inline-block;
+    height: 100%;
+    vertical-align: middle; }
+  #overlay img {
+    display: block;
+    margin: 0 auto; }
+  #overlay .close {
+    position: fixed;
+    top: 5px;
+    right: 5px; }
+  #overlay .left {
+    position: fixed;
+    top: 50%;
+    left: 10px;
+    height: 100px; }
+  #overlay .right {
+    position: fixed;
+    top: 50%;
+    right: 10px;
+    height: 100px; }
+
+svg.icon {
+  width: 40px;
+  height: 40px;
+  fill: rgba(255, 255, 255, 0.6); }
+  svg.icon:hover {
+    background: #323232;
+    background: rgba(50, 50, 50, 0.6); }
+
+header {
+  text-align: center;
+  margin: 30px auto; }
