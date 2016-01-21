@@ -20,5 +20,5 @@
 
 Except the images used in the demo. Use other files whatever you want.
 
-[demo]: haishanh.github.io/hs-gallery/
+[demo]: http://haishanh.github.io/hs-gallery/
 [gulp-image-size]: https://github.com/scalableminds/gulp-image-resize
