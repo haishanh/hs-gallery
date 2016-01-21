@@ -5,6 +5,8 @@
  * Designed for large image set
  * Using lazy load
 
+[Demo][demo]
+
 ### How to use
 
  1. Put images in directory `img`
@@ -16,6 +18,7 @@
 
 ### License
 
-Use it whatever you want.
+Except the images used in the demo. Use other files whatever you want.
 
+[demo]: haishanh.github.io/hs-gallery/
 [gulp-image-size]: https://github.com/scalableminds/gulp-image-resize
